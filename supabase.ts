@@ -25,3 +25,7 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
     detectSessionInUrl: false,
   },
 })
+
+const { db } = supabase;
+
+export default db;
