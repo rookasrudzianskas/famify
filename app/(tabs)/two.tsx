@@ -3,73 +3,59 @@ import { Text, View } from '@/components/Themed';
 import db, {supabase} from "@/supabase";
 import {useQuery} from "react-query";
 import {MaterialIcons} from "@expo/vector-icons";
-import React from "react";
+import React, {useEffect, useState} from "react";
+import {createClient} from "@supabase/supabase-js";
 
 export default function TabTwoScreen() {
+  const [goals, setGoals] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  const {
-    data: goals,
-    isLoading: isLoadingGoals,
-    refetch
-  } = useQuery(['goals'], {
-    queryFn: async () => {
-      const groupId = 1;
-      const { data, error } = await supabase.from('goals').select('*').eq('groupId', groupId);
-      console.log(data);
-      return data; // Add this line to return the fetched data
+  async function fetchInformation() {
+    try {
+      const { data, error } = await supabase.from('goals').select('*').eq('groupId', 1);
+      if (error) {
+        console.error('Error fetching countries:', error.message);
+        return [];
+      }
+
+      return data;
+    } catch (error) {
+      console.error('Error fetching countries:', error.message);
+      return [];
     }
-  });
-
-  const GOALS = [
-    {
-      id: 1,
-      title: 'Goal 1',
-      description: 'This is the first goal',
-      groupId: 1,
-      userId: 1,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      amount: 100,
-      currentAmount: 0,
-      color: 'bg-yellow-500/30'
-    },
-    {
-      id: 2,
-      title: 'Goal 2',
-      description: 'This is the second goal',
-      groupId: 1,
-      userId: 1,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      amount: 100,
-      currentAmount: 0,
-      color: 'bg-blue-500/30'
-    }
-  ]
-
-  if(isLoadingGoals) {
-    return (
-      <View className="flex-1 flex items-center justify-center">
-        <ActivityIndicator />
-      </View>
-    )
   }
+
+  useEffect(() => {
+    setLoading(true);
+    async function fetchData() {
+      const data = await fetchInformation();
+      setGoals(data);
+      setLoading(false);
+    }
+    fetchData();
+  }, []);
+
+  if(loading) return (
+    <View className="flex-1 items-center justify-center">
+      <ActivityIndicator size="large" color="#0000ff" />
+    </View>
+  );
 
   return (
     <View className="flex-1">
       <FlatList
-        data={GOALS}
+        data={goals}
         keyExtractor={(item) => item.id.toString()}
         vertical
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{marginTop: 20}}
         renderItem={({item}) => (
-          <View className={`flex flex-col h-44 my-3 mx-2 rounded-lg p-3 px-7 ${item.color}`}>
+          <View className={`flex flex-col h-44 my-3 mx-2 rounded-lg p-3 px-7 bg-blue-500/30`}>
             <MaterialIcons name="attach-money" size={35} color="black" />
-            <Text className="text-lg font-bold text-white mt-2">{item.title}</Text>
+            <Text className="text-lg font-bold text-white mt-2">{item.name}</Text>
             <View className="flex flex-row items-center bg-transparent">
-              <Text className="text-lg font-semibold text-white">{item.currentAmount.toFixed(2)}{" "}</Text>
+              <Text className="text-lg font-semibold text-white">0</Text>
               <Text className="text-gray-400">/{" "}{item.amount} dollars made</Text>
             </View>
             <View className="bg-transparent flex flex-col items-center justify-center mt-2">

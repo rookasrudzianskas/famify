@@ -1,12 +1,12 @@
 //@ts-nocheck
-import React, {useState} from 'react';
-import {Text, View, StyleSheet, Image, TouchableOpacity, TextInput} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {Text, View, StyleSheet, Image, TouchableOpacity, TextInput, ActivityIndicator} from 'react-native';
 // import DUMMY_USER from '../../../assets/data/user.json';
 // import {User} from "@/types";
 import {useRouter} from "expo-router";
-import {EvilIcons} from "@expo/vector-icons";
+import {EvilIcons, MaterialIcons} from "@expo/vector-icons";
 import * as ImagePicker from 'expo-image-picker';
-import db from "@/supabase";
+import db, {supabase} from "@/supabase";
 import {useMutation} from "react-query";
 // import {useUserContext} from "@/context/UserContext";
 
@@ -30,11 +30,33 @@ const OPTIONS = [
 ];
 
 const AddGoal = () => {
-  // const [user, setUser] = useState(DUMMY_USER);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
-  // const { dbUser } = useUserContext();
   const [content, setContent] = useState<string>('');
+  const [amount, setAmount] = useState<number>(100);
+  const [title, setTitle] = useState<string>('');
   const [image, setImage] = useState<string | null>(null);
+
+  async function insertGoal() {
+    try {
+      const { data, error } = await supabase.from('goals').insert({
+        name: title,
+        amount: amount,
+        groupId: 1,
+        emoji: '🤑',
+      });
+
+      if (error) {
+        console.error('Error inserting goal:', error.message);
+        return null;
+      }
+
+      return data;
+    } catch (error) {
+      console.error('Error inserting goal:', error.message);
+      return null;
+    }
+  }
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -49,41 +71,25 @@ const AddGoal = () => {
     }
   };
 
-  const onSubmit = async (data) => {
+  const onSubmit = async () => {
     const userId = 1;
-    try {
-      const mutation = useMutation({
-        async mutation (data) {
-          await db.from('goals').insert({
-            name: data.name,
-            about: data.about,
-            emoji: '🚀',
-            groupId: 1,
-            targetDate: '12-12-2024'
-          }).eq('id', userId)
-        },
-        async onSuccess () {
-          // Invalidate and refetch
-          await queryClient.invalidateQueries('goals')
-        }
-      })
-
-      router.push('/(tabs)/');
-      setContent('');
-      setImage(null);
-    } catch (e) {
-      console.log(e);
-    }
+    await insertGoal();
   };
+
+  if(loading) return (
+    <View className="flex-1 items-center justify-center">
+      <ActivityIndicator size="large" color="#0000ff" />
+    </View>
+  );
 
 
   return (
-    <View className="flex-1">
-      <TouchableOpacity activeOpacity={0.8} onPress={() => router.push<any>(`/`)} className="flex bg-gray-800/70 rounded-lg max-w-[280px] m-5 ml-0 flex-row items-center p-2">
-        <Image source={{ uri: "https://picsum.photos/500/300?random=3" }} style={styles.userImage} />
+    <View className="flex-1 m-2">
+      <TouchableOpacity activeOpacity={0.8} onPress={() => router.push<any>(`/create-group`)} className="flex flex-row items-center bg-gray-800/70 rounded-lg max-w-[280px] m-5 ml-0 flex-row items-center p-2">
+        <MaterialIcons name="group" size={36} color="white" className="flex items-center justify-center" style={styles.userImage} />
         <View>
-          <Text className="font-[600] text-white mb-1">Rokas</Text>
-          <Text className="text-[12px] text-gray-600">Post to Anyone</Text>
+          <Text className="font-[600] text-white mb-1">Create a group</Text>
+          <Text className="text-[12px] text-gray-600">A Goal of Your Group</Text>
         </View>
       </TouchableOpacity>
 
@@ -91,9 +97,8 @@ const AddGoal = () => {
         <TextInput
           placeholder="Name"
           className="h-10 px-5 mt-0 text-white border border-gray-800/70 py-1 rounded-md border-2"
-          // multiline
-          // value={content}
-          // onChangeText={setContent}
+          value={title}
+          onChangeText={setTitle}
         />
 
         <TextInput
@@ -101,7 +106,8 @@ const AddGoal = () => {
           className="h-10 px-5 mt-0 text-white border border-gray-800/70 py-1 rounded-md border-2"
           keyboardType="numeric"
           selectTextOnFocus
-          value={"1"}
+          value={amount.toString()}
+          onChangeText={() => setAmount(amount)}
         />
 
         <View className="border border-gray-800/70 py-1 rounded-md border-2">
@@ -151,9 +157,7 @@ export default AddGoal;
 const styles = StyleSheet.create({
   userImage: {
     width: 50,
-    aspectRatio: 1,
-    borderRadius: 25,
-    marginRight: 10,
+
   },
   input: {
     margin: 10,
