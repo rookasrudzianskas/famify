@@ -66,7 +66,14 @@ export default function TabTwoScreen() {
               <Text className="text-lg font-semibold text-white">{item.currentAmount.toFixed(2)}{" "}</Text>
               <Text className="text-gray-400">/{" "}{item.amount} dollars made</Text>
             </View>
-            <View className="flex flex-row items-center justify-between bg-transparent mt-5">
+            <View className="bg-transparent flex flex-col items-center justify-center mt-2">
+              <View className="w-full flex items-center justify-center bg-gray-900 pl-[2px] pr-3 h-3 rounded-md">
+                <View className="w-full bg-gray-300/10 h-2 rounded-md px-10">
+
+                </View>
+              </View>
+            </View>
+            <View className="flex flex-row items-center justify-between bg-transparent mt-2">
               <View />
               <TouchableOpacity className="bg-white/20 px-4 py-1 rounded-md">
                 <Text>Explore Goal</Text>

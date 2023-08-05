@@ -14,6 +14,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from 'react-query'
+import {SupabaseProvider} from "@/src/context/SupabaseProvider";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -69,19 +70,21 @@ function RootLayoutNav() {
   }, []);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-          {session && session.user ? (
-            <Stack>
-              <Stack.Screen
-                name="(tabs)" options={{ headerShown: false }} />
-              <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-              <Stack.Screen name="account" options={{ headerShown: false }} />
-            </Stack>
-          ) : (
-            <Auth />
-          )}
-      </ThemeProvider>
-    </QueryClientProvider>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+    {/*<SupabaseProvider>*/}
+            {session && session.user ? (
+              <Stack>
+                <Stack.Screen
+                  name="(tabs)" options={{ headerShown: false }} />
+                <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+                <Stack.Screen name="account" options={{ headerShown: false }} />
+              </Stack>
+            ) : (
+              <Auth />
+            )}
+    {/*</SupabaseProvider>*/}
+        </ThemeProvider>
+      </QueryClientProvider>
   );
 }
