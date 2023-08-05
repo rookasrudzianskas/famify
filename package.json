@@ -41,6 +41,7 @@
     "react-native-svg": "^13.10.0",
     "react-native-url-polyfill": "^2.0.0",
     "react-native-web": "~0.19.6",
+    "react-query": "^3.39.3",
     "yarn": "^1.22.19"
   },
   "devDependencies": {

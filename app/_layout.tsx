@@ -7,11 +7,20 @@ import { useColorScheme } from 'react-native';
 import {Session} from "@supabase/supabase-js";
 import {supabase} from "@/supabase";
 import Auth from "@/components/auth/auth";
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from 'react-query'
 
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
 } from 'expo-router';
+
+const queryClient = new QueryClient()
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
@@ -60,17 +69,19 @@ function RootLayoutNav() {
   }, []);
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        {session && session.user ? (
-          <Stack>
-            <Stack.Screen
-              name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-            <Stack.Screen name="account" options={{ headerShown: false }} />
-          </Stack>
-        ) : (
-          <Auth />
-        )}
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+          {session && session.user ? (
+            <Stack>
+              <Stack.Screen
+                name="(tabs)" options={{ headerShown: false }} />
+              <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+              <Stack.Screen name="account" options={{ headerShown: false }} />
+            </Stack>
+          ) : (
+            <Auth />
+          )}
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 }
