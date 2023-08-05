@@ -1,6 +1,4 @@
-import {FlatList, StyleSheet, TouchableOpacity} from 'react-native';
-
-import EditScreenInfo from '@/components/EditScreenInfo';
+import {ActivityIndicator, FlatList, StyleSheet, TouchableOpacity} from 'react-native';
 import { Text, View } from '@/components/Themed';
 import db, {supabase} from "@/supabase";
 import {useQuery} from "react-query";
@@ -48,6 +46,14 @@ export default function TabTwoScreen() {
       color: 'bg-blue-500/30'
     }
   ]
+
+  if(isLoadingGoals) {
+    return (
+      <View className="flex-1 flex items-center justify-center">
+        <ActivityIndicator />
+      </View>
+    )
+  }
 
   return (
     <View className="flex-1">
