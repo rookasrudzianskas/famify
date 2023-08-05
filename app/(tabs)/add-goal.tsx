@@ -1,14 +1,10 @@
 //@ts-nocheck
 import React, {useEffect, useState} from 'react';
 import {Text, View, StyleSheet, Image, TouchableOpacity, TextInput, ActivityIndicator} from 'react-native';
-// import DUMMY_USER from '../../../assets/data/user.json';
-// import {User} from "@/types";
 import {useRouter} from "expo-router";
 import {EvilIcons, MaterialIcons} from "@expo/vector-icons";
 import * as ImagePicker from 'expo-image-picker';
 import db, {supabase} from "@/supabase";
-import {useMutation} from "react-query";
-// import {useUserContext} from "@/context/UserContext";
 
 const OPTIONS = [
   {
