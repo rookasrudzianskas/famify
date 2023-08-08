@@ -49,7 +49,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="transactions"
+        name="transactions/index"
         options={{
           title: 'Transactions',
           tabBarLabel: () => null,
