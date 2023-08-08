@@ -7,14 +7,12 @@ import { useColorScheme } from 'react-native';
 import {Session} from "@supabase/supabase-js";
 import {supabase} from "@/supabase";
 import Auth from "@/components/auth/auth";
+import { RootSiblingParent } from 'react-native-root-siblings';
+
 import {
-  useQuery,
-  useMutation,
-  useQueryClient,
   QueryClient,
   QueryClientProvider,
 } from 'react-query'
-import {SupabaseProvider} from "@/src/context/SupabaseProvider";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -70,9 +68,10 @@ function RootLayoutNav() {
   }, []);
 
   return (
+    <RootSiblingParent>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-    {/*<SupabaseProvider>*/}
+          {/*<SupabaseProvider>*/}
             {session && session.user ? (
               <Stack>
                 <Stack.Screen
@@ -83,8 +82,9 @@ function RootLayoutNav() {
             ) : (
               <Auth />
             )}
-    {/*</SupabaseProvider>*/}
+          {/*</SupabaseProvider>*/}
         </ThemeProvider>
       </QueryClientProvider>
+    </RootSiblingParent>
   );
 }

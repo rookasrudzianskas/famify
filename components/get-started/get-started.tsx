@@ -24,7 +24,7 @@ const GetStarted = () => {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{marginTop: 20}}
           renderItem={({item}) => (
-            <View className="flex flex-col h-44 mx-2 rounded-lg bg-green-500/30 p-3 px-7">
+            <View className="flex flex-col h-44 mx-2 rounded-lg bg-green-500/30 p-3 px-6">
               <MaterialIcons name="attach-money" size={35} color="black" />
               <Text className="text-lg font-bold text-white mt-2">Make my first 100k dollars</Text>
               <View className="flex flex-row items-center bg-transparent">

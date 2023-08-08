@@ -1,10 +1,10 @@
 //@ts-nocheck
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Text, View, StyleSheet, Image, TouchableOpacity, TextInput, ActivityIndicator} from 'react-native';
 import {useRouter} from "expo-router";
 import {EvilIcons, MaterialIcons} from "@expo/vector-icons";
 import * as ImagePicker from 'expo-image-picker';
-import db, {supabase} from "@/supabase";
+import {supabase} from "@/supabase";
 
 const OPTIONS = [
   {
@@ -106,16 +106,16 @@ const AddGoal = () => {
           onChangeText={() => setAmount(amount)}
         />
 
-        <View className="border border-gray-800/70 py-1 rounded-md border-2">
-          <TextInput
-            placeholder="What do you want to talk about?"
-            className="h-[150px] m-5 mt-0 text-white"
-            multiline
-            value={content}
-            onChangeText={setContent}
-            numberOfLines={3}
-          />
-        </View>
+        {/*<View className="border border-gray-800/70 py-1 rounded-md border-2">*/}
+        {/*  <TextInput*/}
+        {/*    placeholder="What do you want to talk about?"*/}
+        {/*    className="h-[150px] m-5 mt-0 text-white"*/}
+        {/*    multiline*/}
+        {/*    value={content}*/}
+        {/*    onChangeText={setContent}*/}
+        {/*    numberOfLines={3}*/}
+        {/*  />*/}
+        {/*</View>*/}
       </View>
 
       <View className="m-5">
@@ -139,8 +139,8 @@ const AddGoal = () => {
           <EvilIcons name="clock" size={24} color="black" />
           <TouchableOpacity
             onPress={() => onSubmit()}
-            activeOpacity={0.8} className="flex bg-blue-500 w-20 h-7 items-center justify-center rounded-full m-5">
-            <Text className="text-white">{false ? 'Posting' : 'Add Goal'}</Text>
+            activeOpacity={0.8} className="flex bg-blue-500 w-28 h-7 items-center justify-center rounded-full m-5">
+            <Text className="text-white">{false ? 'Posting' : 'Add Your Goal'}</Text>
           </TouchableOpacity>
         </View>
       </View>

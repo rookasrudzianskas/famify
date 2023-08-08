@@ -1,10 +1,8 @@
 import {ActivityIndicator, FlatList, StyleSheet, TouchableOpacity} from 'react-native';
 import { Text, View } from '@/components/Themed';
-import db, {supabase} from "@/supabase";
-import {useQuery} from "react-query";
+import {supabase} from "@/supabase";
 import {MaterialIcons} from "@expo/vector-icons";
 import React, {useEffect, useState} from "react";
-import {createClient} from "@supabase/supabase-js";
 
 export default function TabTwoScreen() {
   const [goals, setGoals] = useState([]);
@@ -49,7 +47,7 @@ export default function TabTwoScreen() {
         vertical
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{marginTop: 20}}
+        contentContainerStyle={{marginTop: 20, paddingBottom: 200}}
         renderItem={({item}) => (
           <View className={`flex flex-col h-44 my-3 mx-2 rounded-lg p-3 px-7 bg-blue-500/30`}>
             <MaterialIcons name="attach-money" size={35} color="black" />
