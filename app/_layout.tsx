@@ -6,7 +6,7 @@ import {useEffect, useState} from 'react';
 import { useColorScheme } from 'react-native';
 import {Session} from "@supabase/supabase-js";
 import {supabase} from "@/supabase";
-import Auth from "@/components/auth/auth";
+import Auth from "@/src/components/auth/auth";
 import { RootSiblingParent } from 'react-native-root-siblings';
 
 import {

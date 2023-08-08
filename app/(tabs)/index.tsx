@@ -1,9 +1,9 @@
 import {ScrollView, StyleSheet} from 'react-native';
-import { Text } from '@/components/Themed';
+import { Text } from '@/src/components/Themed';
 import { NativeWindStyleSheet } from "nativewind";
-import GetStarted from "@/components/get-started";
-import MRROverView from "@/components/mrr-overview";
-import PostsList from "@/components/posts-list";
+import GetStarted from "../../src/components/features/get-started";
+import MRROverView from "../../src/components/features/mrr-overview";
+import PostsList from "../../src/components/features/posts-list";
 
 NativeWindStyleSheet.setOutput({
   default: "native",

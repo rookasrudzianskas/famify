@@ -1,5 +1,5 @@
 import {ActivityIndicator, FlatList, StyleSheet, TouchableOpacity} from 'react-native';
-import { Text, View } from '@/components/Themed';
+import { Text, View } from '@/src/components/Themed';
 import {supabase} from "@/supabase";
 import {MaterialIcons} from "@expo/vector-icons";
 import React, {useEffect, useState} from "react";

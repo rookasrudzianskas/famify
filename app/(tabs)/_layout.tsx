@@ -3,7 +3,7 @@ import { Link, Tabs } from 'expo-router';
 import {Pressable, useColorScheme, View} from 'react-native';
 
 import Colors from '@/constants/Colors';
-import {AntDesign, FontAwesome5} from "@expo/vector-icons";
+import {AntDesign, FontAwesome5, Ionicons, Octicons} from "@expo/vector-icons";
 
 function TabBarIcon(props: {
   name: React.ComponentProps<typeof FontAwesome>['name'];
@@ -30,6 +30,14 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="two"
+        options={{
+          title: 'Savings',
+          tabBarLabel: () => null,
+          tabBarIcon: ({ color }) => <FontAwesome5 name="piggy-bank" size={22} color={color} />,
+        }}
+      />
+      <Tabs.Screen
         name="add-goal"
         options={{
           title: 'Add Goal',
@@ -37,15 +45,23 @@ export default function TabLayout() {
           tabBarLabel: () => null,
           tabBarIcon: ({ color }) => <View className="mt-1">
             <AntDesign name="pluscircle" size={42} color={color} />
-          </View>,
+          </View>
         }}
       />
       <Tabs.Screen
-        name="two"
+        name="transactions"
         options={{
-          title: 'Savings',
+          title: 'Transactions',
           tabBarLabel: () => null,
-          tabBarIcon: ({ color }) => <FontAwesome5 name="piggy-bank" size={22} color={color} />,
+          tabBarIcon: ({ color }) => <Octicons name="arrow-switch" size={22} color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="settings"
+        options={{
+          title: 'Settings',
+          tabBarLabel: () => null,
+          tabBarIcon: ({ color }) => <Ionicons name="settings-outline" size={22} color={color} />,
         }}
       />
     </Tabs>

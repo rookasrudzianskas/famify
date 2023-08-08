@@ -1,6 +1,6 @@
 //@ts-nocheck
 import React, {useEffect, useState} from 'react';
-import Account from "@/components/auth/account";
+import Account from "@/src/components/auth/account";
 import {Session} from "@supabase/supabase-js";
 import {supabase} from "@/supabase";
 
