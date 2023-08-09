@@ -1,20 +1,24 @@
 //@ts-nocheck
 import React, {useEffect, useState} from 'react';
-import {Text, View, StyleSheet, FlatList, TouchableOpacity, ActivityIndicator} from 'react-native';
-import {AntDesign, MaterialIcons} from "@expo/vector-icons";
+import {Text, View, FlatList, TouchableOpacity, ActivityIndicator} from 'react-native';
+import {AntDesign} from "@expo/vector-icons";
 import {useRouter} from "expo-router";
 import {fetchAllGoals} from "@/src/services/specific/fetch-all-goals";
+import * as Progress from 'react-native-progress';
+import {fetchSpecificGoalProgress} from "@/src/services/specific/get-goal-progress";
 
 const GetStarted = () => {
-  const CARDS = [1, 2, 3, 4];
   const [goals, setGoals] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [goalProgress, setGoalProgress] = useState(0);
   const router = useRouter();
 
   useEffect(() => {
     setLoading(true);
     async function fetchData() {
       const data = await fetchAllGoals();
+      const goalsData = await fetchSpecificGoalProgress(1);
+      setGoalProgress(goalsData);
       setGoals(data);
       setLoading(false);
     }
@@ -46,13 +50,19 @@ const GetStarted = () => {
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={{marginTop: 20}}
             renderItem={({item}) => (
-              <View className="flex flex-col h-44 mx-2 rounded-lg bg-green-500/30 p-3 px-6">
+              <View className="flex flex-col h-48 mx-2 rounded-lg bg-green-500/30 p-3 px-8">
                 <Text className="text-[30rem]">{item.emoji}</Text>
                 <Text className="text-lg font-bold text-white mt-2">{item.name}</Text>
-                <View className="flex flex-row items-center bg-transparent">
+                <View className="flex flex-row items-center mb-2 bg-transparent">
                   <Text className="text-lg font-semibold text-white">81.500</Text>
                   <Text className="text-gray-400">/{item.amount.toFixed(2)} dollars goal</Text>
                 </View>
+                <Progress.Bar
+                  progress={goalProgress / item.amount}
+                  width={null}
+                  color="white"
+                  animated={true}
+                />
                 <View className="flex flex-row items-center justify-between bg-transparent mt-5">
                   <View />
                   <TouchableOpacity className="bg-white/20 px-4 py-1 rounded-md">
