@@ -31,10 +31,10 @@ const GetStarted = () => {
     <View>
       <View className="flex flex-row items-center justify-between mt-3">
         <Text className="text-lg font-semibold text-white">Get Started</Text>
-        <View className="flex flex-row items-center space-x-1 justify-center">
+        <TouchableOpacity onPress={() => router.push('/(tabs)/two')} className="flex flex-row items-center space-x-1 justify-center">
           <Text className="text-gray-500 text-sm">All Achievements</Text>
           <AntDesign name="arrowright" size={14} color="gray" />
-        </View>
+        </TouchableOpacity>
       </View>
 
       {goals.length > 0 && (
