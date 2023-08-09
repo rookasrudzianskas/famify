@@ -6,6 +6,7 @@ import React, {useEffect, useState} from "react";
 import {supabase} from "@/supabase";
 import {useRouter} from "expo-router";
 import { SelectList } from 'react-native-dropdown-select-list'
+import {fetchInformation} from "@/src/services/goalsFetcher";
 
 export default function ModalScreen() {
   const [title, setTitle] = useState('');
@@ -30,21 +31,6 @@ export default function ModalScreen() {
       router.push('/index');
     } catch (error) {
       console.error('Transaction error', error.message);
-    }
-  }
-
-  async function fetchInformation() {
-    try {
-      const { data, error } = await supabase.from('goals').select('*');
-      if (error) {
-        console.error('Error fetching countries:', error.message);
-        return [];
-      }
-
-      return data;
-    } catch (error) {
-      console.error('Error fetching countries:', error.message);
-      return [];
     }
   }
 
