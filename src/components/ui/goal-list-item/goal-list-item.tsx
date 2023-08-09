@@ -19,7 +19,7 @@ const GoalListItem = ({goal, goalProgress}) => {
           </View>
         </View>
       </View>
-      <Text className="text-xl font-semibold text-white mb-2">Explore Transactions</Text>
+      <Text className="text-2xl font-semibold text-center text-white mb-2">Explore Transactions</Text>
     </>
   );
 };
