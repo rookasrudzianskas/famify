@@ -13,6 +13,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from 'react-query'
+import {SupabaseProvider} from "@/src/context/SupabaseProvider";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -71,7 +72,7 @@ function RootLayoutNav() {
     <RootSiblingParent>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-          {/*<SupabaseProvider>*/}
+          <SupabaseProvider>
             {session && session.user ? (
               <Stack>
                 <Stack.Screen
@@ -82,7 +83,7 @@ function RootLayoutNav() {
             ) : (
               <Auth />
             )}
-          {/*</SupabaseProvider>*/}
+          </SupabaseProvider>
         </ThemeProvider>
       </QueryClientProvider>
     </RootSiblingParent>

@@ -1,5 +1,5 @@
 // @ts-nocheck
-import {TextInput, TouchableOpacity} from 'react-native';
+import {Alert, TextInput, TouchableOpacity} from 'react-native';
 
 import { Text, View } from '@/src/components/Themed';
 import React, {useEffect, useState} from "react";
@@ -7,21 +7,24 @@ import {supabase} from "@/supabase";
 import {useRouter} from "expo-router";
 import { SelectList } from 'react-native-dropdown-select-list'
 import {fetchInformation} from "@/src/services/goalsFetcher";
+import {useSupabase} from "@/src/context/useSupabase";
 
 export default function ModalScreen() {
   const [title, setTitle] = useState('');
   const [amount, setAmount] = useState("0");
   const router = useRouter();
+  const {session} = useSupabase();
   const [goals, setGoals] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState(null);
 
   const createNewTransaction = async () => {
+    if(!title, !amount, !selected) return Alert.alert('Please fill all the fields');
     setLoading(true);
     try {
       const { data, error } = await supabase.from('transactions').insert({
         amount: parseInt(amount),
-        user_id: "4eff72e0-7817-4977-94fd-f8b3d2786a90",
+        user_id: session.user.identities![0].user_id,
         goal_id: 1,
         group_id: 1,
       });
