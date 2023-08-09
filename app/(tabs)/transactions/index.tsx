@@ -4,6 +4,7 @@ import {Text, View, StyleSheet, SafeAreaView, ActivityIndicator} from 'react-nat
 import {Link, Stack} from "expo-router";
 import {AntDesign} from "@expo/vector-icons";
 import {transactionsFetcher} from "@/src/services/transactionsFetcher";
+import TransactionListItem from "@/src/components/ui/transaction-list-item";
 
 const Index = () => {
   const [transactions, setTransactions] = useState([]);
@@ -26,11 +27,12 @@ const Index = () => {
   );
 
   if(transactions.length > 0 ) return (
-    <View>
+    <View className="pt-10 mx-5">
       {transactions.map((transaction: any, key) => (
-        <Text key={key} className="text-white">
-          {transaction.amount}
-        </Text>
+        <TransactionListItem
+          transaction={transaction}
+          key={key}
+        />
       ))}
     </View>
   )
