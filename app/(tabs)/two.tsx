@@ -3,10 +3,12 @@ import { Text, View } from '@/src/components/Themed';
 import {supabase} from "@/supabase";
 import {MaterialIcons} from "@expo/vector-icons";
 import React, {useEffect, useState} from "react";
+import {useRouter} from "expo-router";
 
 export default function TabTwoScreen() {
   const [goals, setGoals] = useState([]);
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   async function fetchInformation() {
     try {
@@ -49,7 +51,7 @@ export default function TabTwoScreen() {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{marginTop: 20, paddingBottom: 200}}
         renderItem={({item}) => (
-          <View className={`flex flex-col h-44 my-3 mx-2 rounded-lg p-3 px-7 bg-blue-500/30`}>
+          <TouchableOpacity onPress={() => router.push(`/goal/${item.id}`)} className={`flex flex-col h-44 my-3 mx-2 rounded-lg p-3 px-7 bg-blue-500/30`}>
             <MaterialIcons name="attach-money" size={35} color="black" />
             <Text className="text-lg font-bold text-white mt-2">{item.name}</Text>
             <View className="flex flex-row items-center bg-transparent">
@@ -69,7 +71,7 @@ export default function TabTwoScreen() {
                 <Text>Explore Goal</Text>
               </TouchableOpacity>
             </View>
-          </View>
+          </TouchableOpacity>
         )}
       />
     </View>
