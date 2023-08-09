@@ -4,6 +4,7 @@ import {supabase} from "@/supabase";
 import {MaterialIcons} from "@expo/vector-icons";
 import React, {useEffect, useState} from "react";
 import {useRouter} from "expo-router";
+import {fetchSpecificGoalProgress} from "@/src/services/specific/get-goal-progress";
 
 export default function TabTwoScreen() {
   const [goals, setGoals] = useState([]);

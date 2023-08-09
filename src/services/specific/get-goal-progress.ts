@@ -1,11 +1,11 @@
 import {supabase} from "@/supabase";
 
-export async function fetchSpecificGoalProgress(id) {
+export async function fetchSpecificGoalProgress(goalId) {
   try {
     const { data, error } = await supabase
-      .from('transactions')
-      .select('*')
-      .eq('goal_id', id)
+      .rpc('get_goal_progress', {
+        id: goalId
+      })
     if (error) {
       console.error('Error fetching countries:', error.message);
       return [];

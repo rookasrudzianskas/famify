@@ -6,12 +6,14 @@ import {fetchSpecificGoal} from "@/src/services/specific/fetch-goal";
 import {fetchSpecificTransactions} from "@/src/services/specific/fetch-transactions";
 import TransactionListItem from "@/src/components/ui/transaction-list-item";
 import GoalListItem from "@/src/components/ui/goal-list-item";
+import {fetchSpecificGoalProgress} from "@/src/services/specific/get-goal-progress";
 
 const GoalScreen = () => {
   const { goalId } = useLocalSearchParams();
   const [goal, setGoal] = useState([]);
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [goalProgress, setGoalProgress] = useState();
 
   useEffect(() => {
     setLoading(true);
@@ -33,6 +35,16 @@ const GoalScreen = () => {
     fetchTransactions();
   }, []);
 
+  useEffect(() => {
+    setLoading(true);
+    async function fetchData() {
+      const data = await fetchSpecificGoalProgress(goalId);
+      setGoalProgress(data);
+      setLoading(false);
+    }
+    fetchData();
+  }, []);
+
   if(loading) return (
     <View className="flex-1 items-center justify-center">
       <ActivityIndicator />
@@ -48,6 +60,7 @@ const GoalScreen = () => {
             ListHeaderComponent={() => (
               <GoalListItem
                 goal={goal}
+                goalProgress={goalProgress}
               />
             )}
             renderItem={({item}) => (
