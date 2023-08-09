@@ -54,7 +54,7 @@ export default function ModalScreen() {
   }, []);
 
   return (
-    <View className="h-screen pt-7 px-5">
+    <View className="h-screen pt-7 px-3">
       <View className="flex flex-col mt-6 w-full">
         <Text className="text-lg text-semibold text-white text-center mb-4">Add a Saving Goal</Text>
         <View className="flex flex-col ml-3 space-y-5 h-full">

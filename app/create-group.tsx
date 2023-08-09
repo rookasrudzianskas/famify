@@ -32,7 +32,8 @@ const CreateGroup = () => {
         <Text className="flex items-center justify-center text-white text-lg font-semibold">Create a group</Text>
         <TextInput
           placeholder="Name"
-          className="h-10 px-4 mt-0 w-full mx-2 text-white border border-gray-800/70 py-1 rounded-md border-2"
+          style={{backgroundColor: '#171616', borderRadius: 4}}
+          className="w-full h-12 px-5 mt-0 text-white border-[1px] border-gray-500 py-1"
           value={groupName}
           onChangeText={setGroupName}
         />

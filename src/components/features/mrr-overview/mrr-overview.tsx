@@ -45,6 +45,15 @@ const MRROverView = () => {
           <Text className="text-4xl font-semibold text-white">{renderBeautifulDollarAmount(goals)}</Text>
         </View>
       </View>
+    },
+    {
+      id: 3,
+      component: <View className="flex flex-col h-32 mx-2 rounded-lg bg-black p-3 w-36">
+        <Text className="text-sm font-semibold text-gray-600 mt-2">GROUPS</Text>
+        <View className="flex flex-row items-center bg-transparent">
+          <Text className="text-4xl font-semibold text-white">2</Text>
+        </View>
+      </View>
     }
   ]
 
