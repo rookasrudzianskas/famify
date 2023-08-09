@@ -1,6 +1,6 @@
 //@ts-nocheck
 import React, {useEffect, useState} from 'react';
-import {Text, View, StyleSheet, SafeAreaView, ActivityIndicator} from 'react-native';
+import {Text, View, StyleSheet, SafeAreaView, ActivityIndicator, FlatList} from 'react-native';
 import {Link, Stack} from "expo-router";
 import {AntDesign} from "@expo/vector-icons";
 import {transactionsFetcher} from "@/src/services/transactionsFetcher";
@@ -32,15 +32,20 @@ const Index = () => {
   if(transactions.length > 0 ) return (
     <View className="pt-10 mx-5 space-y-5">
       {showConfetti && <ConfettiCannon count={200} origin={{x: 200, y: -200}} onAnimationEnd={() => setShowConfetti(false)}/>}
-      {transactions.map((transaction: any, key) => (
-        <TransactionListItem
-          transaction={transaction}
-          key={key}
-          isMe={isMe}
-          showConfetti={showConfetti}
-          setShowConfetti={setShowConfetti}
-        />
-      ))}
+      <FlatList
+        data={transactions}
+        renderItem={({item}) => (
+          <TransactionListItem
+            transaction={item}
+            key={item.id}
+            isMe={isMe}
+            showConfetti={showConfetti}
+            setShowConfetti={setShowConfetti}
+          />
+        )}
+        keyExtractor={(item, index) => index.toString()}
+        showsVerticalScrollIndicator={false}
+      />
     </View>
   )
 
