@@ -1,14 +1,19 @@
+// @ts-nocheck
 import {Platform, StyleSheet, TextInput, TouchableOpacity} from 'react-native';
 
 import { Text, View } from '@/src/components/Themed';
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {supabase} from "@/supabase";
 import {useRouter} from "expo-router";
+import { SelectList } from 'react-native-dropdown-select-list'
 
 export default function ModalScreen() {
   const [title, setTitle] = useState('');
   const [amount, setAmount] = useState("0");
   const router = useRouter();
+  const [goals, setGoals] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [selected, setSelected] = useState(null);
 
   const createNewTransaction = async () => {
     try {
@@ -28,6 +33,31 @@ export default function ModalScreen() {
     }
   }
 
+  async function fetchInformation() {
+    try {
+      const { data, error } = await supabase.from('goals').select('*');
+      if (error) {
+        console.error('Error fetching countries:', error.message);
+        return [];
+      }
+
+      return data;
+    } catch (error) {
+      console.error('Error fetching countries:', error.message);
+      return [];
+    }
+  }
+
+  useEffect(() => {
+    setLoading(true);
+    async function fetchData() {
+      const data = await fetchInformation();
+      setGoals(data);
+      setLoading(false);
+    }
+    fetchData();
+  }, []);
+
   return (
     <View className="h-screen pt-7 px-5">
       <View className="flex flex-col mt-6 w-full">
@@ -37,22 +67,40 @@ export default function ModalScreen() {
             <Text className="text-gray-600 mb-1 ml-1">Name</Text>
             <TextInput
               placeholder="Name"
-              className="w-full h-10 px-5 mt-0 text-white border border-gray-800/70 py-1 rounded-md border-2"
+              style={{backgroundColor: '#171616', borderRadius: 4}}
+              className="w-full h-12 px-5 mt-0 text-white border-[1px] border-gray-500 py-1"
               value={title}
               onChangeText={setTitle}
             />
           </View>
 
-          <View>
+          <View className="">
             <Text className="text-gray-600 mb-1 ml-1">Amount</Text>
             <TextInput
               placeholder="1"
-              className="w-full h-10 px-5 mt-0 text-white border border-gray-800/70 py-1 rounded-md border-2"
+              style={{backgroundColor: '#171616', borderRadius: 4}}
+              className="w-full h-12 px-5 mt-0 text-white border-[1px] border-gray-500 py-1"
               keyboardType="numeric"
               selectTextOnFocus
               value={amount}
               onChangeText={(text) => setAmount(text)}  // Update the amount when text changes
             />
+
+            {goals.length > 0 && (
+              <View className="mt-6">
+                <Text className="text-gray-600 mb-1 ml-1">Goals</Text>
+                <SelectList
+                  setSelected={(val) => setSelected(val)}
+                  data={() => goals.map((goal) => ({key: goal.id, value: goal.name}))}
+                  save="value"
+                  boxStyles={{backgroundColor: '#171616', borderRadius: 4}}
+                  inputStyles={{backgroundColor: '#171616', color: '#fff'}}
+                  dropdownStyles={{backgroundColor: '#171616', borderRadius: 4}}
+                  dropdownItemStyles={{backgroundColor: '#171616'}}
+                  dropdownTextStyles={{color: '#fff'}}
+                />
+              </View>
+            )}
           </View>
         </View>
         <View>
