@@ -4,6 +4,7 @@ import {Text, View, ActivityIndicator, ScrollView, FlatList} from 'react-native'
 import {AntDesign} from "@expo/vector-icons";
 import {useRouter} from "expo-router";
 import {fetchAllGoals} from "@/src/services/specific/fetch-all-goals";
+import {renderBeautifulDollarAmount} from "@/src/utils/price-formatter";
 
 const MRROverView = () => {
   const [goals, setGoals] = useState([]);
@@ -38,10 +39,10 @@ const MRROverView = () => {
     },
     {
       id: 2,
-      component: <View className="flex flex-col h-32 mx-2 rounded-lg bg-black p-3 w-80">
+      component: <View className="flex flex-col h-32 mx-2 rounded-lg bg-black p-3 w-36">
         <Text className="text-sm font-semibold text-gray-600 mt-2">TOTAL SAVED</Text>
         <View className="flex flex-row items-center bg-transparent">
-          <Text className="text-4xl font-semibold text-white">${(goals.reduce((acc, curr) => acc + curr.amount, 0).toFixed(1))}</Text>
+          <Text className="text-4xl font-semibold text-white">{renderBeautifulDollarAmount(goals)}</Text>
         </View>
       </View>
     }
