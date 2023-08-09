@@ -1,10 +1,9 @@
 //@ts-nocheck
-import React, {useState} from 'react';
-import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
-import ConfettiCannon from 'react-native-confetti-cannon';
+import React from 'react';
+import {Text, View, TouchableOpacity} from 'react-native';
 import {formatTimeAgo} from "@/src/utils/data-formatter";
 
-const TransactionListItem = ({transaction, isMe, setShowConfetti, showConfetti}) => {
+const TransactionListItem = ({transaction, isMe, setShowConfetti}) => {
   return (
     <TouchableOpacity
       onPress={() => setShowConfetti(true)}

@@ -1,6 +1,6 @@
 //@ts-nocheck
 import React, {useEffect, useState} from 'react';
-import {Text, View, StyleSheet, SafeAreaView, ActivityIndicator, FlatList} from 'react-native';
+import {Text, View, SafeAreaView, ActivityIndicator, FlatList} from 'react-native';
 import {Link, Stack} from "expo-router";
 import {AntDesign} from "@expo/vector-icons";
 import {transactionsFetcher} from "@/src/services/transactionsFetcher";
@@ -34,6 +34,7 @@ const Index = () => {
       {showConfetti && <ConfettiCannon count={200} origin={{x: 200, y: -200}} onAnimationEnd={() => setShowConfetti(false)}/>}
       <FlatList
         data={transactions}
+        inverted
         renderItem={({item}) => (
           <TransactionListItem
             transaction={item}
