@@ -1,6 +1,6 @@
 //@ts-nocheck
 import React, {useEffect, useState} from 'react';
-import {Text, View, ActivityIndicator, FlatList} from 'react-native';
+import {View, ActivityIndicator, FlatList} from 'react-native';
 import {useLocalSearchParams} from "expo-router";
 import {fetchSpecificGoal} from "@/src/services/specific/fetch-goal";
 import {fetchSpecificTransactions} from "@/src/services/specific/fetch-transactions";
@@ -19,30 +19,14 @@ const GoalScreen = () => {
     setLoading(true);
     async function fetchGoals() {
       const data = await fetchSpecificGoal(goalId);
+      const transactionData = await fetchSpecificTransactions();
+      const goalsData = await fetchSpecificGoalProgress(goalId);
       setGoal(data);
+      setTransactions(transactionData);
+      setGoalProgress(goalsData);
       setLoading(false);
     }
     fetchGoals();
-  }, []);
-
-  useEffect(() => {
-    setLoading(true);
-    async function fetchTransactions() {
-      const data = await fetchSpecificTransactions();
-      setTransactions(data);
-      setLoading(false);
-    }
-    fetchTransactions();
-  }, []);
-
-  useEffect(() => {
-    setLoading(true);
-    async function fetchData() {
-      const data = await fetchSpecificGoalProgress(goalId);
-      setGoalProgress(data);
-      setLoading(false);
-    }
-    fetchData();
   }, []);
 
   if(loading) return (
@@ -57,6 +41,19 @@ const GoalScreen = () => {
         <View className="pt-3 mx-5 space-y-5">
           <FlatList
             data={transactions}
+            keyExtractor={(item, index) => index.toString()}
+            contentContainerStyle={{paddingBottom: 100}}
+            refreshing={loading}
+            showsVerticalScrollIndicator={false}
+            onRefresh={() => {
+              setLoading(true);
+              async function fetchData() {
+                const data = await fetchSpecificTransactions();
+                setTransactions(data);
+                setLoading(false);
+              }
+              fetchData();
+            }}
             ListHeaderComponent={() => (
               <GoalListItem
                 goal={goal}
@@ -70,19 +67,6 @@ const GoalScreen = () => {
                 isMe={true}
               />
             )}
-            keyExtractor={(item, index) => index.toString()}
-            contentContainerStyle={{paddingBottom: 100}}
-            refreshing={loading}
-            onRefresh={() => {
-              setLoading(true);
-              async function fetchData() {
-                const data = await fetchSpecificTransactions();
-                setTransactions(data);
-                setLoading(false);
-              }
-              fetchData();
-            }}
-            showsVerticalScrollIndicator={false}
           />
         </View>
       )}
