@@ -16,7 +16,7 @@ const GetStarted = () => {
   useEffect(() => {
     setLoading(true);
     (async () => {
-      const data = await fetchAllGoals();
+      const data = await fetchAllGoals(5);
       const goalsData = await fetchSpecificGoalProgress(1);
       setGoalProgress(goalsData);
       setGoals(data);
