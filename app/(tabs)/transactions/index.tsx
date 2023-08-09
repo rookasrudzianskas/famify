@@ -30,7 +30,7 @@ const Index = () => {
   );
 
   if(transactions.length > 0 ) return (
-    <View className="pt-10 mx-5 space-y-5">
+    <View className="pt-7 mx-5 space-y-5">
       {showConfetti && <ConfettiCannon count={200} origin={{x: 200, y: -200}} onAnimationEnd={() => setShowConfetti(false)}/>}
       <FlatList
         data={transactions}
