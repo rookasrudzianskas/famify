@@ -5,10 +5,13 @@ import {Link, Stack} from "expo-router";
 import {AntDesign} from "@expo/vector-icons";
 import {transactionsFetcher} from "@/src/services/transactionsFetcher";
 import TransactionListItem from "@/src/components/ui/transaction-list-item";
+import ConfettiCannon from "react-native-confetti-cannon";
 
 const Index = () => {
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [isMe, setIsMe] = useState(true);
+  const [showConfetti, setShowConfetti] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -27,11 +30,15 @@ const Index = () => {
   );
 
   if(transactions.length > 0 ) return (
-    <View className="pt-10 mx-5">
+    <View className="pt-10 mx-5 space-y-5">
+      {showConfetti && <ConfettiCannon count={200} origin={{x: 200, y: -200}} onAnimationEnd={() => setShowConfetti(false)}/>}
       {transactions.map((transaction: any, key) => (
         <TransactionListItem
           transaction={transaction}
           key={key}
+          isMe={isMe}
+          showConfetti={showConfetti}
+          setShowConfetti={setShowConfetti}
         />
       ))}
     </View>
