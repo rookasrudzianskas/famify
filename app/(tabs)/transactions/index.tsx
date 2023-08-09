@@ -11,7 +11,7 @@ const Index = () => {
         options={{
           title: 'Transactions',
           headerRight: () => (
-            <Link href="/savings/create" className="mr-4">
+            <Link href="/modal" className="mr-4">
               <AntDesign name="plus" size={18} color="white" />
             </Link>
           )
