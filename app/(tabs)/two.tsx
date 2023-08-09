@@ -37,7 +37,7 @@ export default function TabTwoScreen() {
 
   if(loading) return (
     <View className="flex-1 items-center justify-center">
-      <ActivityIndicator size="large" color="#0000ff" />
+      <ActivityIndicator />
     </View>
   );
 
@@ -51,7 +51,7 @@ export default function TabTwoScreen() {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{marginTop: 20, paddingBottom: 200}}
         renderItem={({item}) => (
-          <TouchableOpacity onPress={() => router.push(`/goal/${item.id}`)} className={`flex flex-col h-44 my-3 mx-2 rounded-lg p-3 px-7 bg-blue-500/30`}>
+          <TouchableOpacity activeOpacity={0.7} onPress={() => router.push(`/goal/${item.id}`)} className={`flex flex-col h-44 my-3 mx-2 rounded-lg p-3 px-7 bg-blue-500/30`}>
             <MaterialIcons name="attach-money" size={35} color="black" />
             <Text className="text-lg font-bold text-white mt-2">{item.name}</Text>
             <View className="flex flex-row items-center bg-transparent">
