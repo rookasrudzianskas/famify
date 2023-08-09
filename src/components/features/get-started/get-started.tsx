@@ -41,7 +41,7 @@ const GetStarted = () => {
       </View>
 
       {goals.length > 0 && (
-        <View>
+        <View className="w-full">
           <FlatList
             data={goals}
             keyExtractor={(item) => item.id.toString()}
@@ -49,7 +49,7 @@ const GetStarted = () => {
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={{marginTop: 20}}
             renderItem={({item}) => (
-              <View className="flex flex-col h-48 mx-2 rounded-lg bg-green-500/30 p-3 px-8">
+              <View className="flex flex-col h-48 mx-2 rounded-lg bg-green-500/30 p-3 px-5 w-[300px]">
                 <Text className="text-[30rem]">{item.emoji}</Text>
                 <Text className="text-lg font-bold text-white mt-2">{item.name}</Text>
                 <View className="flex flex-row items-center mb-2 bg-transparent">
