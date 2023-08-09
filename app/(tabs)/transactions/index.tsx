@@ -60,7 +60,6 @@ const Index = () => {
     </View>
   )
 
-
   return (
     <SafeAreaView>
       <Stack.Screen
