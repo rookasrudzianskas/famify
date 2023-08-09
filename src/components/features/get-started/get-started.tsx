@@ -15,14 +15,13 @@ const GetStarted = () => {
 
   useEffect(() => {
     setLoading(true);
-    async function fetchData() {
+    (async () => {
       const data = await fetchAllGoals();
       const goalsData = await fetchSpecificGoalProgress(1);
       setGoalProgress(goalsData);
       setGoals(data);
       setLoading(false);
-    }
-    fetchData();
+    })();
   }, []);
 
   if(loading) return (
