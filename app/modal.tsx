@@ -20,9 +20,11 @@ export default function ModalScreen() {
     try {
       const { data, error } = await supabase.from('transactions').insert({
         amount: parseInt(amount),
-        user_id: "423492384920348230948230948",
+        user_id: "4eff72e0-7817-4977-94fd-f8b3d2786a90",
         goal_id: 1,
+        group_id: 1,
       });
+
       if (error) {
         console.error('Error creating group:', error.message);
         return;
