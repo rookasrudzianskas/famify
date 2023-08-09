@@ -10,15 +10,12 @@ NativeWindStyleSheet.setOutput({
 });
 
 export default function TabOneScreen() {
-  const CARDS = [1, 2, 3, 4];
   return (
     <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{paddingBottom: 100}} className="flex-1 bg-black p-5 pt-16">
       <Text className="text-white text-xl font-semibold">Good afternoon, Rokas</Text>
-
       <GetStarted />
       <MRROverView />
       <PostsList />
-
     </ScrollView>
   );
 }

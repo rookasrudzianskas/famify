@@ -17,7 +17,7 @@ const GoalScreen = () => {
 
   useEffect(() => {
     setLoading(true);
-    async function fetchGoals() {
+    (async () => {
       const data = await fetchSpecificGoal(goalId);
       const transactionData = await fetchSpecificTransactions();
       const goalsData = await fetchSpecificGoalProgress(goalId);
@@ -25,8 +25,7 @@ const GoalScreen = () => {
       setTransactions(transactionData);
       setGoalProgress(goalsData);
       setLoading(false);
-    }
-    fetchGoals();
+    })();
   }, []);
 
   if(loading) return (
