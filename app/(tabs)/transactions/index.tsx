@@ -45,6 +45,16 @@ const Index = () => {
           />
         )}
         keyExtractor={(item, index) => index.toString()}
+        refreshing={loading}
+        onRefresh={() => {
+          setLoading(true);
+          async function fetchData() {
+            const data = await transactionsFetcher();
+            setTransactions(data);
+            setLoading(false);
+          }
+          fetchData();
+        }}
         showsVerticalScrollIndicator={false}
       />
     </View>
