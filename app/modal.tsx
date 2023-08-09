@@ -1,5 +1,5 @@
 // @ts-nocheck
-import {Platform, StyleSheet, TextInput, TouchableOpacity} from 'react-native';
+import {TextInput, TouchableOpacity} from 'react-native';
 
 import { Text, View } from '@/src/components/Themed';
 import React, {useEffect, useState} from "react";
@@ -17,6 +17,7 @@ export default function ModalScreen() {
   const [selected, setSelected] = useState(null);
 
   const createNewTransaction = async () => {
+    setLoading(true);
     try {
       const { data, error } = await supabase.from('transactions').insert({
         amount: parseInt(amount),
@@ -27,11 +28,14 @@ export default function ModalScreen() {
 
       if (error) {
         console.error('Error creating group:', error.message);
+        setLoading(false);
         return;
       }
 
-      router.push('/index');
+      setLoading(false);
+      router.push('/');
     } catch (error) {
+      setLoading(false);
       console.error('Transaction error', error.message);
     }
   }
@@ -91,11 +95,13 @@ export default function ModalScreen() {
             )}
           </View>
         </View>
+
         <View>
-          <TouchableOpacity onPress={createNewTransaction} className="flex absolute bottom-44 w-full px-5 items-center justify-center mb-20 h-10 bg-white rounded-md">
+          <TouchableOpacity disabled={loading} onPress={createNewTransaction} activeOpacity={loading ? 1 : 0.7} className="flex absolute bottom-44 w-full px-5 items-center justify-center mb-20 h-10 bg-white rounded-md">
             <Text className="text-black font-semibold text-base">Create a transaction</Text>
           </TouchableOpacity>
         </View>
+
       </View>
     </View>
   );
