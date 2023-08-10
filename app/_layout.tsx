@@ -91,6 +91,10 @@ function RootLayoutNav() {
                   name="goal/[goalId]"
                   options={{ title: 'Goal Explanation' }}
                 />
+                <Stack.Screen
+                  name="create-group"
+                  options={{ headerShown: false }}
+                />
               </Stack>
             ) : (
               <Auth />

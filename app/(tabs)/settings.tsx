@@ -1,7 +1,6 @@
 //@ts-nocheck
 import React from 'react';
-import {Text, View, StyleSheet, TouchableOpacity, Switch, ScrollView} from 'react-native';
-import {useNavigation} from "@react-navigation/native";
+import {Text, View, TouchableOpacity, Switch, ScrollView} from 'react-native';
 import {
     AntDesign,
     Feather,
@@ -13,7 +12,6 @@ import {
     SimpleLineIcons
 } from "@expo/vector-icons";
 import * as WebBrowser from 'expo-web-browser';
-
 
 const Settings = () => {
 
