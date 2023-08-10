@@ -5,7 +5,7 @@ import {Text, View, StyleSheet} from 'react-native';
 const About = () => {
   return (
     <View>
-      <Text>
+      <Text className="text-white">
         byrookas 🚀
       </Text>
     </View>

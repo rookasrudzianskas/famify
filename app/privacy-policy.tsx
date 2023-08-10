@@ -5,7 +5,7 @@ import {Text, View, StyleSheet} from 'react-native';
 const PrivacyPolicy = () => {
   return (
     <View>
-      <Text>
+      <Text className="text-white">
         byrookas 🚀
       </Text>
     </View>

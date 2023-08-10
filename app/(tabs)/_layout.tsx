@@ -43,6 +43,8 @@ export default function TabLayout() {
           title: 'Add Goal',
           // hide title
           tabBarLabel: () => null,
+          headerTitle: () => null,
+          headerShown: false,
           tabBarIcon: ({ color }) => <View className="mt-1">
             <AntDesign name="pluscircle" size={42} color={color} />
           </View>
@@ -60,6 +62,7 @@ export default function TabLayout() {
         name="settings"
         options={{
           title: 'Settings',
+          headerShown: false,
           tabBarLabel: () => null,
           tabBarIcon: ({ color }) => <Ionicons name="settings-outline" size={22} color={color} />,
         }}
