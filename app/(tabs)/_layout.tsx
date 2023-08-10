@@ -1,11 +1,9 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-// import { Link, Tabs } from 'expo-router';
+import { Link, Tabs } from 'expo-router';
 import {Pressable, useColorScheme, View} from 'react-native';
 
 import Colors from '@/constants/Colors';
 import {AntDesign, FontAwesome5, Ionicons, Octicons} from "@expo/vector-icons";
-import {Tabs} from "expo-router";
-
 
 function TabBarIcon(props: {
   name: React.ComponentProps<typeof FontAwesome>['name'];
@@ -45,7 +43,6 @@ export default function TabLayout() {
           title: 'Add Goal',
           // hide title
           tabBarLabel: () => null,
-          presentation: 'modal',
           tabBarIcon: ({ color }) => <View className="mt-1">
             <AntDesign name="pluscircle" size={42} color={color} />
           </View>
