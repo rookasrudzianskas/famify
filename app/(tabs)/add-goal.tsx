@@ -2,11 +2,10 @@
 import React, {useState} from 'react';
 import {Text, View, StyleSheet, Image, TouchableOpacity, TextInput, ActivityIndicator} from 'react-native';
 import {useRouter} from "expo-router";
-import {EvilIcons, MaterialCommunityIcons, MaterialIcons} from "@expo/vector-icons";
+import {EvilIcons, MaterialIcons} from "@expo/vector-icons";
 import * as ImagePicker from 'expo-image-picker';
 import {supabase} from "@/supabase";
 import EmojiSelector, { Categories } from "react-native-emoji-selector";
-import SegmentedControl, {Segment} from "@hadnet/react-native-segmented-control";
 
 const OPTIONS = [
   {
@@ -83,43 +82,13 @@ const AddGoal = () => {
 
   return (
     <View className="flex-1 m-2">
-      <SegmentedControl
-        haptics
-        containerMargin={16}
-        segmentedControlWrapper={{
-          backgroundColor: '#1e1e1e',
-          width: 300,
-          borderRadius: 12,
-        }}
-        tileStyle={{
-          margin: 4,
-          backgroundColor: 'black',
-          // paddingVertical: 18
-          // borderRadius: 12,
-        }}
-        segments={[
-          <Segment
-            title="GPT-3.5"
-            inactiveTitleStyle={{color: '#9a999f'}}
-            activeTitleStyle={{color: 'white'}}
-            activeIconColor={'limegreen'}
-            icon={
-              // Accepts react-native-vector-icons
-              <MaterialCommunityIcons name="lightning-bolt" size={22} />
-            }
-          />,
-          <Segment
-            title="GPT-4"
-            inactiveTitleStyle={{color: '#9a999f'}}
-            activeTitleStyle={{color: 'white'}}
-            activeIconColor={'#9978f2'}
-            icon={<MaterialIcons name="auto-awesome" size={18} />}
-          />,
-        ]}
-        // badgeValues={[null, 2]}
-        onChange={index => {}}
-        currentIndex={0}
-      />
+      <TouchableOpacity activeOpacity={0.8} onPress={() => router.push<any>(`/create-group`)} className="flex flex-row items-center bg-gray-800/70 rounded-lg max-w-[280px] m-5 ml-0 flex-row items-center p-2">
+        <MaterialIcons name="group" size={36} color="white" className="flex items-center justify-center" style={styles.userImage} />
+        <View>
+          <Text className="font-[600] text-white mb-1">Create a group</Text>
+          <Text className="text-[12px] text-gray-600">A Goal of Your Group</Text>
+        </View>
+      </TouchableOpacity>
 
       <View className="space-y-3">
         <TextInput
