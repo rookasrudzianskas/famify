@@ -3,7 +3,7 @@ import {Tabs} from 'expo-router';
 import {useColorScheme, View} from 'react-native';
 
 import Colors from '@/constants/Colors';
-import {AntDesign, FontAwesome5, Ionicons, Octicons} from "@expo/vector-icons";
+import {AntDesign, FontAwesome5, Ionicons, MaterialIcons, Octicons} from "@expo/vector-icons";
 
 function TabBarIcon(props: {
   name: React.ComponentProps<typeof FontAwesome>['name'];
@@ -58,12 +58,12 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="settings"
+        name="profile"
         options={{
-          title: 'Settings',
+          title: 'Profile',
           headerShown: false,
           tabBarLabel: () => null,
-          tabBarIcon: ({ color }) => <Ionicons name="settings-outline" size={22} color={color} />,
+          tabBarIcon: ({ color }) => <MaterialIcons name="supervised-user-circle" size={26} color={color} />,
         }}
       />
     </Tabs>
