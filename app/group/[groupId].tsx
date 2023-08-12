@@ -7,11 +7,15 @@ import {fetchSpecificGroup} from "@/src/services/specific/fetch-specific-group";
 import { Image } from 'expo-image';
 import {useSupabase} from "@/src/context/useSupabase";
 import Modal from "react-native-modal";
+import {fetchSpecificGroupByInviteCode} from "@/src/services/specific/fetch-specific-group-by-code";
 
 const GroupScreen = () => {
   const router = useRouter();
   const [group, setGroup] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [loadingGroupSearch, setLoadingGroupSearch] = useState(false);
+  const [groupCode, setGroupCode] = useState<string>(null);
+  const [foundGroup, setFoundGroup] = useState<any>(null);
   const [joinCode, setJoinCode] = useState<boolean>(false);
   const {session} = useSupabase();
 
@@ -23,6 +27,17 @@ const GroupScreen = () => {
       setLoading(false);
     })();
   }, []);
+
+  useEffect(() => {
+    setLoadingGroupSearch(true);
+    (async () => {
+      if(!groupCode) return;
+      const data = await fetchSpecificGroupByInviteCode(groupCode);
+      setFoundGroup(data);
+      console.log(data)
+      setLoadingGroupSearch(false);
+    })();
+  }, [groupCode]);
 
   if(loading) return (
     <View className="flex-1 items-center justify-center">
@@ -99,13 +114,29 @@ const GroupScreen = () => {
               <Text>Invite code</Text>
               <TextInput
                 placeholder="Invite code"
-                placeholderTextColor="#A0AEC0"
-                className="flex-1 h-10 px-3 py-1 text-sm text-gray-700 placeholder-gray-500 border rounded-lg"
+                className="flex-1 px-3 text-sm text-gray-700 placeholder-gray-500 border rounded-md py-2"
+                onChangeText={(text) => setGroupCode(text)}
+                value={groupCode}
               />
             </View>
+
+            {loadingGroupSearch && (
+              <View className="mt-3">
+                <ActivityIndicator />
+              </View>
+            )}
+
+            {(foundGroup && !loadingGroupSearch) && (
+              <View className="flex flex-row items-center mt-3">
+                <Text className="font-semibold">Found group:</Text>
+                <Text className="font-semibold"> {foundGroup?.name}</Text>
+              </View>
+            )}
+
             <TouchableOpacity
               onPress={() => {}}
-              activeOpacity={0.8}
+              activeOpacity={loadingGroupSearch ? 1 : 0.8}
+              disabled={loadingGroupSearch}
               className="flex items-center justify-center mt-5 h-10 bg-black rounded-md"
             >
               <Text className="text-white font-semibold text-base">Join a group</Text>
