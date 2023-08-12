@@ -95,6 +95,10 @@ function RootLayoutNav() {
                   name="create-group"
                   options={{ headerShown: false }}
                 />
+                <Stack.Screen
+                  name="group/[groupId]"
+                  options={{ headerShown: false }}
+                />
               </Stack>
             ) : (
               <Auth />
