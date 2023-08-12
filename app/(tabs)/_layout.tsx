@@ -1,6 +1,6 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Link, Tabs } from 'expo-router';
-import {Pressable, useColorScheme, View} from 'react-native';
+import {Tabs} from 'expo-router';
+import {useColorScheme, View} from 'react-native';
 
 import Colors from '@/constants/Colors';
 import {AntDesign, FontAwesome5, Ionicons, Octicons} from "@expo/vector-icons";
@@ -41,7 +41,6 @@ export default function TabLayout() {
         name="add-goal"
         options={{
           title: 'Add Goal',
-          // hide title
           tabBarLabel: () => null,
           headerTitle: () => null,
           headerShown: false,
