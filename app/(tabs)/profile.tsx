@@ -1,16 +1,12 @@
 //@ts-nocheck
 import React from 'react';
-import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
+import {Text, View, TouchableOpacity} from 'react-native';
 import {useSupabase} from "@/src/context/useSupabase";
 import { Image } from 'expo-image';
 import {
-  AntDesign,
-  Entypo,
   Feather,
-  FontAwesome5,
   Foundation,
   Ionicons,
-  MaterialCommunityIcons
 } from "@expo/vector-icons";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import {useRouter} from "expo-router";
