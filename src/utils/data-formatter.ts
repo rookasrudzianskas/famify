@@ -1,7 +1,8 @@
-export function formatTimeAgo(dateString) {
+export function formatTimeAgo(dateString: number) {
   const currentDate = new Date();
   const inputDate = new Date(dateString);
 
+  // @ts-ignore
   const elapsedMilliseconds = currentDate - inputDate;
   const elapsedSeconds = Math.floor(elapsedMilliseconds / 1000);
 
