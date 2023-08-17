@@ -6,7 +6,6 @@ import {AntDesign} from "@expo/vector-icons";
 import {transactionsFetcher} from "@/src/services/transactionsFetcher";
 import TransactionListItem from "@/src/components/ui/transaction-list-item";
 import ConfettiCannon from "react-native-confetti-cannon";
-import ContextMenu from "react-native-context-menu-view";
 
 const Index = () => {
   const [transactions, setTransactions] = useState([]);

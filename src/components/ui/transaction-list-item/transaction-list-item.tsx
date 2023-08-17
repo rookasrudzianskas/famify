@@ -2,6 +2,7 @@
 import React from 'react';
 import {Text, View, TouchableOpacity} from 'react-native';
 import {formatTimeAgo} from "@/src/utils/data-formatter";
+import ContextMenu from "react-native-context-menu-view";
 
 const TransactionListItem = ({transaction, isMe, setShowConfetti}) => {
   return (
