@@ -72,6 +72,7 @@ function RootLayoutNav() {
     <RootSiblingParent>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+
           <SupabaseProvider>
             {session && session.user ? (
               <Stack>
