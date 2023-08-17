@@ -1,6 +1,6 @@
 //@ts-nocheck
 import React, {useEffect, useState} from 'react';
-import {Text, View, StyleSheet, TouchableOpacity, ActivityIndicator, TextInput} from 'react-native';
+import {Text, View, TouchableOpacity, ActivityIndicator, TextInput} from 'react-native';
 import {MaterialCommunityIcons, MaterialIcons} from "@expo/vector-icons";
 import {useRouter} from "expo-router";
 import {fetchSpecificGroup} from "@/src/services/specific/fetch-specific-group";
