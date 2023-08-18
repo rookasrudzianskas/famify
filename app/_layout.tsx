@@ -74,7 +74,7 @@ function RootLayoutNav() {
   }, []);
 
   const updateOnboarding = () => {
-    setOnboardingComplete(true);
+    setOnboardingComplete(!onboardingComplete);
   }
 
   return (
