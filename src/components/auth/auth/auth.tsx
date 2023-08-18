@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Alert, StyleSheet, View } from 'react-native'
 import { Button, Input } from 'react-native-elements'
 import {supabase} from "@/supabase";
+import * as amplitude from '@amplitude/analytics-react-native';
 
 export default function Auth() {
   const [email, setEmail] = useState('')
@@ -16,6 +17,7 @@ export default function Auth() {
     })
 
     if (error) Alert.alert(error.message)
+    amplitude.track('Sign In');
     setLoading(false)
   }
 
@@ -27,6 +29,7 @@ export default function Auth() {
     })
 
     if (error) Alert.alert(error.message)
+    amplitude.track('Sign Up');
     setLoading(false)
   }
 

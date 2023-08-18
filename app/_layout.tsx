@@ -85,6 +85,7 @@ function RootLayoutNav() {
               <OnboardFlow
                 fullscreenModal={true}
                 onDone={updateOnboarding}
+                onBack={() => amplitude.track('Onboarding - Back')}
                 pages={[
                   {
                     title: 'Welcome to my app',
