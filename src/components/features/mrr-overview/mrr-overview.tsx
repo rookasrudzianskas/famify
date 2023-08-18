@@ -1,16 +1,34 @@
 //@ts-nocheck
 import React, {useEffect, useState} from 'react';
-import {Text, View, ActivityIndicator, ScrollView, FlatList} from 'react-native';
+import {Text, View, ActivityIndicator, ScrollView, FlatList, TouchableOpacity} from 'react-native';
 import {AntDesign} from "@expo/vector-icons";
 import {useRouter} from "expo-router";
 import {fetchAllGoals} from "@/src/services/specific/fetch-all-goals";
 import {renderBeautifulDollarAmount} from "@/src/utils/price-formatter";
+import { MotiView } from 'moti';
+import { Skeleton } from 'moti/skeleton';
+
+const LOADING_DATA = [
+  {
+    id: 1,
+    title: 'GOALS CREATED',
+  },
+  {
+    id: 2,
+    title: 'TOTAL SAVED',
+  },
+  {
+    id: 3,
+    title: 'GROUPS',
+  }
+]
 
 const MRROverView = () => {
   const [goals, setGoals] = useState([]);
   const [loading, setLoading] = useState(false);
   const [goalProgress, setGoalProgress] = useState(0);
   const router = useRouter();
+  const colorMode = true ? 'dark' : 'light';
 
   useEffect(() => {
     setLoading(true);
@@ -21,10 +39,44 @@ const MRROverView = () => {
     })();
   }, []);
 
-  if(loading) return (
-    <View className="flex-1 items-center justify-center">
-      <ActivityIndicator />
-    </View>
+  if(true) return (
+    <>
+      <MotiView
+        transition={{
+          type: 'timing',
+        }}
+        // style={[styles.container, styles.padded]}
+        animate={{ backgroundColor: true ? '#000000' : '#ffffff' }}
+      >
+        <View className="flex flex-row items-center justify-between mt-9">
+          <Text className="text-lg font-semibold text-white">Overview</Text>
+          <View className="flex flex-row items-center space-x-1 justify-center">
+            <Text className="text-gray-500 text-sm">View All Stats</Text>
+            <AntDesign name="arrowright" size={14} color="gray" />
+          </View>
+        </View>
+        <FlatList
+          data={LOADING_DATA}
+          keyExtractor={(item) => item.id}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{marginTop: 20}}
+          renderItem={({item}) => (
+            <View className="flex flex-col h-32 rounded-lg bg-black py-3 w-36">
+              <Text className="text-sm font-semibold text-gray-600 mt-2">{item.title}</Text>
+              <View className="flex flex-row items-center mt-3 bg-transparent">
+                <Skeleton
+                  colorMode={colorMode}
+                  width={100}
+                  height={50}
+                  style={{marginLeft: 20}}
+                />
+              </View>
+            </View>
+          )}
+        />
+      </MotiView>
+    </>
   );
 
   const DATA = [

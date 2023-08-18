@@ -13,7 +13,6 @@ const GetStarted = () => {
   const [goals, setGoals] = useState([]);
   const [loading, setLoading] = useState(false);
   const [goalProgress, setGoalProgress] = useState(0);
-  // const [dark, toggle] = useReducer((s) => !s, true);
   const router = useRouter();
 
   const colorMode = true ? 'dark' : 'light';
@@ -30,9 +29,6 @@ const GetStarted = () => {
   }, []);
 
   if(true) return (
-    // <View className="flex-1 items-center justify-center">
-    //   <ActivityIndicator />
-    // </View>
     <>
       <MotiView
         transition={{
