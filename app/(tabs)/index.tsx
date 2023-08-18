@@ -4,6 +4,7 @@ import { NativeWindStyleSheet } from "nativewind";
 import GetStarted from "../../src/components/features/get-started";
 import MRROverView from "../../src/components/features/mrr-overview";
 import PostsList from "../../src/components/features/posts-list";
+import * as amplitude from '@amplitude/analytics-react-native';
 
 NativeWindStyleSheet.setOutput({
   default: "native",
