@@ -9,6 +9,7 @@ import {supabase} from "@/supabase";
 import Auth from "@/src/components/auth/auth";
 import { RootSiblingParent } from 'react-native-root-siblings';
 import { OnboardFlow } from 'react-native-onboard';
+import * as amplitude from '@amplitude/analytics-react-native';
 
 import {
   QueryClient,
@@ -59,6 +60,8 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
   const [session, setSession] = useState<Session | null>(null)
   const [onboardingComplete, setOnboardingComplete] = useState(false);
+
+  amplitude.init(`${process.env.EXPO_PUBLIC_AMPLITUDE_API_KEY_ACCESS_TOKEN}`);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
