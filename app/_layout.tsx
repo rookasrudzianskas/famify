@@ -58,6 +58,7 @@ export default function RootLayout() {
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
   const [session, setSession] = useState<Session | null>(null)
+  const [onboardingComplete, setOnboardingComplete] = useState(false);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -69,54 +70,73 @@ function RootLayoutNav() {
     })
   }, []);
 
+  const updateOnboarding = () => {
+    setOnboardingComplete(true);
+  }
+
   return (
     <RootSiblingParent>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-
-          <SupabaseProvider>
-            <OnboardFlow fullscreenModal={true} pages={[
-              {
-                title: 'Welcome to my app',
-                subtitle: 'Cool description of my app',
-                imageUri: 'https://illlustrations.co/static/f8a168f23ea5623d0c8987b551729183/day78-wallet.png',
-              },
-              {
-                title: 'Page 2 header',
-                subtitle: 'Welcome to page 2',
-                imageComponent: <View><Text>Hello!</Text></View>
-              }]} />
-            {/*{session && session.user ? (*/}
-            {/*  <Stack>*/}
-            {/*    <Stack.Screen*/}
-            {/*      name="(tabs)"*/}
-            {/*      options={{ headerShown: false }}*/}
-            {/*    />*/}
-            {/*    <Stack.Screen*/}
-            {/*      name="modal"*/}
-            {/*      options={{ presentation: 'modal', title: 'Add Transaction' }}*/}
-            {/*    />*/}
-            {/*    <Stack.Screen*/}
-            {/*      name="account"*/}
-            {/*      options={{ headerShown: false }}*/}
-            {/*    />*/}
-            {/*    <Stack.Screen*/}
-            {/*      name="goal/[goalId]"*/}
-            {/*      options={{ title: 'Goal Explanation' }}*/}
-            {/*    />*/}
-            {/*    <Stack.Screen*/}
-            {/*      name="create-group"*/}
-            {/*      options={{ headerShown: false }}*/}
-            {/*    />*/}
-            {/*    <Stack.Screen*/}
-            {/*      name="group/[groupId]"*/}
-            {/*      options={{ headerShown: false }}*/}
-            {/*    />*/}
-            {/*  </Stack>*/}
-            {/*) : (*/}
-            {/*  <Auth />*/}
-            {/*)}*/}
-          </SupabaseProvider>
+            {onboardingComplete ? (
+              <OnboardFlow
+                fullscreenModal={true}
+                onDone={updateOnboarding}
+                pages={[
+                  {
+                    title: 'Welcome to my app',
+                    subtitle: 'Connect your bank account now and start saving money.',
+                    imageUri: 'https://illlustrations.co/static/15d8c30e1f77fd78c3b83b9fca9c3a92/day81-ice-cream.png'
+                  },
+                  {
+                    title: 'Buy cool stuff',
+                    subtitle: 'Remember that ice cream you wanted to buy?',
+                    imageUri: 'https://illlustrations.co/static/15d8c30e1f77fd78c3b83b9fca9c3a92/day81-ice-cream.png'
+                  },
+                  {
+                    title: 'The right tools',
+                    subtitle: 'Our app can do anything. Literally anything. We are that good.',
+                    imageUri: 'https://illlustrations.co/static/a547d1bc532ad86a13dd8f47d754f0a1/day77-pocket-knief.png'
+                  }
+                ]}
+                type='fullscreen'
+              />
+            ) : (
+              <SupabaseProvider>
+                  <>
+                    {session && session.user ? (
+                      <Stack>
+                        <Stack.Screen
+                          name="(tabs)"
+                          options={{ headerShown: false }}
+                        />
+                        <Stack.Screen
+                          name="modal"
+                          options={{ presentation: 'modal', title: 'Add Transaction' }}
+                        />
+                        <Stack.Screen
+                          name="account"
+                          options={{ headerShown: false }}
+                        />
+                        <Stack.Screen
+                          name="goal/[goalId]"
+                          options={{ title: 'Goal Explanation' }}
+                        />
+                        <Stack.Screen
+                          name="create-group"
+                          options={{ headerShown: false }}
+                        />
+                        <Stack.Screen
+                          name="group/[groupId]"
+                          options={{ headerShown: false }}
+                        />
+                      </Stack>
+                    ) : (
+                      <Auth />
+                    )}
+                  </>
+              </SupabaseProvider>
+            )}
         </ThemeProvider>
       </QueryClientProvider>
     </RootSiblingParent>
