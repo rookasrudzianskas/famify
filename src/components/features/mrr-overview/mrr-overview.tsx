@@ -39,13 +39,12 @@ const MRROverView = () => {
     })();
   }, []);
 
-  if(true) return (
+  if(loading) return (
     <>
       <MotiView
         transition={{
           type: 'timing',
         }}
-        // style={[styles.container, styles.padded]}
         animate={{ backgroundColor: true ? '#000000' : '#ffffff' }}
       >
         <View className="flex flex-row items-center justify-between mt-9">

@@ -1,6 +1,6 @@
 //@ts-nocheck
 import React, {useEffect, useState} from 'react';
-import {Text, View, FlatList, TouchableOpacity, StyleSheet, ActivityIndicator} from 'react-native';
+import {Text, View, FlatList, TouchableOpacity, StyleSheet} from 'react-native';
 import {AntDesign} from "@expo/vector-icons";
 import {useRouter} from "expo-router";
 import {fetchAllGoals} from "@/src/services/specific/fetch-all-goals";
@@ -28,7 +28,7 @@ const GetStarted = () => {
     })();
   }, []);
 
-  if(true) return (
+  if(loading) return (
     <>
       <MotiView
         transition={{
