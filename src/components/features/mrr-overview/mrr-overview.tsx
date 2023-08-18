@@ -1,6 +1,6 @@
 //@ts-nocheck
 import React, {useEffect, useState} from 'react';
-import {Text, View, ActivityIndicator, ScrollView, FlatList, TouchableOpacity} from 'react-native';
+import {Text, View, ScrollView, FlatList} from 'react-native';
 import {AntDesign} from "@expo/vector-icons";
 import {useRouter} from "expo-router";
 import {fetchAllGoals} from "@/src/services/specific/fetch-all-goals";
@@ -59,7 +59,7 @@ const MRROverView = () => {
           keyExtractor={(item) => item.id}
           horizontal
           showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{marginTop: 20}}
+          // contentContainerStyle={{marginTop: 20}}
           renderItem={({item}) => (
             <View className="flex flex-col h-32 rounded-lg bg-black py-3 w-36">
               <Text className="text-sm font-semibold text-gray-600 mt-2">{item.title}</Text>
@@ -125,7 +125,6 @@ const MRROverView = () => {
             keyExtractor={(item) => item.id.toString()}
             horizontal
             showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{marginTop: 20}}
             renderItem={({item}) => (
               <>
                 {item.component}
