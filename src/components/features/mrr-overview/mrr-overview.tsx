@@ -2,7 +2,6 @@
 import React, {useEffect, useState} from 'react';
 import {Text, View, ScrollView, FlatList} from 'react-native';
 import {AntDesign} from "@expo/vector-icons";
-import {useRouter} from "expo-router";
 import {fetchAllGoals} from "@/src/services/specific/fetch-all-goals";
 import {renderBeautifulDollarAmount} from "@/src/utils/price-formatter";
 import { MotiView } from 'moti';
@@ -26,8 +25,6 @@ const LOADING_DATA = [
 const MRROverView = () => {
   const [goals, setGoals] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [goalProgress, setGoalProgress] = useState(0);
-  const router = useRouter();
   const colorMode = true ? 'dark' : 'light';
 
   useEffect(() => {
@@ -59,7 +56,6 @@ const MRROverView = () => {
           keyExtractor={(item) => item.id}
           horizontal
           showsHorizontalScrollIndicator={false}
-          // contentContainerStyle={{marginTop: 20}}
           renderItem={({item}) => (
             <View className="flex flex-col h-32 rounded-lg bg-black py-3 w-36">
               <Text className="text-sm font-semibold text-gray-600 mt-2">{item.title}</Text>

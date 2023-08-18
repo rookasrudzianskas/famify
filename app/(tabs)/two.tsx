@@ -1,15 +1,18 @@
+// @ts-nocheck
 import {ActivityIndicator, FlatList, StyleSheet, TouchableOpacity} from 'react-native';
 import { Text, View } from '@/src/components/Themed';
 import {supabase} from "@/supabase";
-import {MaterialIcons} from "@expo/vector-icons";
+import {AntDesign, MaterialIcons} from "@expo/vector-icons";
 import React, {useEffect, useState} from "react";
 import {useRouter} from "expo-router";
-import {fetchSpecificGoalProgress} from "@/src/services/specific/get-goal-progress";
+import { MotiView } from 'moti';
+import { Skeleton } from 'moti/skeleton';
 
 export default function TabTwoScreen() {
   const [goals, setGoals] = useState([]);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const colorMode = true ? 'dark' : 'light';
 
   async function fetchInformation() {
     try {
@@ -36,10 +39,39 @@ export default function TabTwoScreen() {
     fetchData();
   }, []);
 
-  if(loading) return (
-    <View className="flex-1 items-center justify-center">
-      <ActivityIndicator />
-    </View>
+  if(true) return (
+    <>
+      <MotiView
+        transition={{
+          type: 'timing',
+        }}
+        animate={{ backgroundColor: true ? '#000000' : '#ffffff' }}
+        style={{backgroundColor: '#000000', marginHorizontal: 15}}
+      >
+        <View className="flex flex-row items-center justify-between mt-9">
+          <Text className="text-lg font-semibold text-white">Overview</Text>
+          <View className="flex flex-row items-center space-x-1 justify-center">
+            <Text className="text-gray-500 text-sm">View All Stats</Text>
+            <AntDesign name="arrowright" size={14} color="gray" />
+          </View>
+        </View>
+        <FlatList
+          data={[1, 2, 3, 4, 5, 6, 7, 8]}
+          keyExtractor={(item) => item.id}
+          showsVerticalScrollIndicator={false}
+          renderItem={({item}) => (
+            <View className="my-2">
+              <Skeleton
+                colorMode={colorMode}
+                width={396}
+                height={140}
+                style={{marginLeft: 20}}
+              />
+            </View>
+          )}
+        />
+      </MotiView>
+    </>
   );
 
   return (
@@ -47,7 +79,6 @@ export default function TabTwoScreen() {
       <FlatList
         data={goals}
         keyExtractor={(item) => item.id.toString()}
-        vertical
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{marginTop: 20, paddingBottom: 200}}
@@ -62,7 +93,6 @@ export default function TabTwoScreen() {
             <View className="bg-transparent flex flex-col items-center justify-center mt-2">
               <View className="w-full flex items-center justify-center bg-gray-900 pl-[2px] pr-3 h-3 rounded-md">
                 <View className="w-full bg-gray-300/10 h-2 rounded-md px-10">
-
                 </View>
               </View>
             </View>
