@@ -39,22 +39,15 @@ export default function TabTwoScreen() {
     fetchData();
   }, []);
 
-  if(true) return (
+  if(loading) return (
     <>
       <MotiView
         transition={{
           type: 'timing',
         }}
         animate={{ backgroundColor: true ? '#000000' : '#ffffff' }}
-        style={{backgroundColor: '#000000', marginHorizontal: 15}}
+        style={{backgroundColor: '#000000', marginHorizontal: 15, marginTop: 15}}
       >
-        <View className="flex flex-row items-center justify-between mt-9">
-          <Text className="text-lg font-semibold text-white">Overview</Text>
-          <View className="flex flex-row items-center space-x-1 justify-center">
-            <Text className="text-gray-500 text-sm">View All Stats</Text>
-            <AntDesign name="arrowright" size={14} color="gray" />
-          </View>
-        </View>
         <FlatList
           data={[1, 2, 3, 4, 5, 6, 7, 8]}
           keyExtractor={(item) => item.id}
