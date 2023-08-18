@@ -32,6 +32,7 @@
     "expo-system-ui": "~2.4.0",
     "expo-web-browser": "^12.3.2",
     "lucide-react-native": "^0.263.0",
+    "moti": "^0.26.0",
     "nativewind": "^2.0.11",
     "or": "^0.2.0",
     "react": "18.2.0",

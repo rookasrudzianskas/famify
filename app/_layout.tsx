@@ -10,6 +10,8 @@ import Auth from "@/src/components/auth/auth";
 import { RootSiblingParent } from 'react-native-root-siblings';
 import { OnboardFlow } from 'react-native-onboard';
 import * as amplitude from '@amplitude/analytics-react-native';
+import 'react-native-reanimated';
+import 'react-native-gesture-handler';
 
 import {
   QueryClient,
