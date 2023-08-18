@@ -1,17 +1,22 @@
 //@ts-nocheck
 import React, {useEffect, useState} from 'react';
-import {Text, View, FlatList, TouchableOpacity, ActivityIndicator} from 'react-native';
+import {Text, View, FlatList, TouchableOpacity, StyleSheet, ActivityIndicator} from 'react-native';
 import {AntDesign} from "@expo/vector-icons";
 import {useRouter} from "expo-router";
 import {fetchAllGoals} from "@/src/services/specific/fetch-all-goals";
 import * as Progress from 'react-native-progress';
 import {fetchSpecificGoalProgress} from "@/src/services/specific/get-goal-progress";
+import { MotiView } from 'moti';
+import { Skeleton } from 'moti/skeleton';
 
 const GetStarted = () => {
   const [goals, setGoals] = useState([]);
   const [loading, setLoading] = useState(false);
   const [goalProgress, setGoalProgress] = useState(0);
+  // const [dark, toggle] = useReducer((s) => !s, true);
   const router = useRouter();
+
+  const colorMode = true ? 'dark' : 'light';
 
   useEffect(() => {
     setLoading(true);
@@ -24,10 +29,44 @@ const GetStarted = () => {
     })();
   }, []);
 
-  if(loading) return (
-    <View className="flex-1 items-center justify-center">
-      <ActivityIndicator />
-    </View>
+  if(true) return (
+    // <View className="flex-1 items-center justify-center">
+    //   <ActivityIndicator />
+    // </View>
+    <>
+      <MotiView
+        transition={{
+          type: 'timing',
+        }}
+        // style={[styles.container, styles.padded]}
+        animate={{ backgroundColor: true ? '#000000' : '#ffffff' }}
+      >
+        <View className="flex flex-row items-center justify-between mt-3">
+          <Text className="text-lg font-semibold text-white">Get Started</Text>
+          <TouchableOpacity onPress={() => router.push('/(tabs)/two')} className="flex flex-row items-center space-x-1 justify-center">
+            <Text className="text-gray-500 text-sm">All Achievements</Text>
+            <AntDesign name="arrowright" size={14} color="gray" />
+          </TouchableOpacity>
+        </View>
+        <FlatList
+          data={[1, 2, 3]}
+          keyExtractor={(item) => item}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{marginTop: 20}}
+          renderItem={({item}) => (
+            <View className="mr-4">
+              <Skeleton
+                colorMode={colorMode}
+                width={300}
+                height={180}
+                style={{marginLeft: 20}}
+              />
+            </View>
+          )}
+        />
+      </MotiView>
+    </>
   );
 
   return (
@@ -78,3 +117,21 @@ const GetStarted = () => {
 };
 
 export default GetStarted;
+
+const styles = StyleSheet.create({
+  shape: {
+    justifyContent: 'center',
+    height: 250,
+    width: 250,
+    borderRadius: 25,
+    marginRight: 10,
+    backgroundColor: 'white',
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  padded: {
+    padding: 16,
+  },
+});
