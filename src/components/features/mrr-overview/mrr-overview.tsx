@@ -77,28 +77,37 @@ const MRROverView = () => {
   const DATA = [
     {
       id: 1,
-      component: <View className="flex flex-col h-32 mx-2 rounded-lg bg-black p-3 w-36">
+      component: <View className="flex flex-col h-32 mx-2 rounded-lg bg-black p-3 w-40">
         <Text className="text-sm font-semibold text-gray-600 mt-2">GOALS CREATED</Text>
         <View className="flex flex-row items-center bg-transparent">
-          <Text className="text-4xl font-semibold text-white">{goals.length}</Text>
+          <Text className="text-4xl font-semibold text-white mt-1">{goals.length} Goals</Text>
         </View>
       </View>
     },
     {
       id: 2,
-      component: <View className="flex flex-col h-32 mx-2 rounded-lg bg-black p-3 w-36">
+      component: <View className="flex flex-col h-32 mx-2 rounded-lg bg-black p-3 w-40">
         <Text className="text-sm font-semibold text-gray-600 mt-2">TOTAL SAVED</Text>
         <View className="flex flex-row items-center bg-transparent">
-          <Text className="text-4xl font-semibold text-white">{renderBeautifulDollarAmount(goals)}</Text>
+          <Text className="text-4xl font-semibold text-white mt-1">{renderBeautifulDollarAmount(goals)}</Text>
         </View>
       </View>
     },
     {
       id: 3,
-      component: <View className="flex flex-col h-32 mx-2 rounded-lg bg-black p-3 w-36">
+      component: <View className="flex flex-col h-32 mx-2 rounded-lg bg-black p-3 w-40">
+        <Text className="text-sm font-semibold text-gray-600 mt-2">THIS MONTH</Text>
+        <View className="flex flex-row items-center bg-transparent">
+          <Text className="text-4xl font-semibold text-white mt-1">{renderBeautifulDollarAmount(goals)}</Text>
+        </View>
+      </View>
+    },
+    {
+      id: 4,
+      component: <View className="flex flex-col h-32 mx-2 rounded-lg bg-black p-3 w-40">
         <Text className="text-sm font-semibold text-gray-600 mt-2">GROUPS</Text>
         <View className="flex flex-row items-center bg-transparent">
-          <Text className="text-4xl font-semibold text-white">2</Text>
+          <Text className="text-4xl font-semibold text-white mt-1">2</Text>
         </View>
       </View>
     }
