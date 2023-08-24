@@ -60,7 +60,10 @@ export default function NotificationProvider({children}: NotificationProviderPro
         body: 'Here is the notification body',
         data: { data: 'goes here' },
       },
-      trigger: { seconds: 2 },
+      trigger: {
+        date: new Date(Date.now() + 5000),
+        seconds: 5,
+      }
     });
   }
 
