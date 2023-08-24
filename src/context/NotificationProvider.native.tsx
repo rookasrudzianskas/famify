@@ -61,8 +61,10 @@ export default function NotificationProvider({children}: NotificationProviderPro
         data: { data: 'goes here' },
       },
       trigger: {
-        date: new Date(Date.now() + 5000),
-        seconds: 5,
+        weekday: 1,
+        hour: 12,
+        minute: 0,
+        repeats: true
       }
     });
   }
