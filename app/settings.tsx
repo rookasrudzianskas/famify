@@ -14,7 +14,6 @@ import {
 import * as WebBrowser from 'expo-web-browser';
 
 const Settings = () => {
-
     return (
         <View className="mx-4">
             <View className="flex-row justify-between mt-12">
