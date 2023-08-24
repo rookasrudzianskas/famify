@@ -6,6 +6,7 @@ import {EvilIcons, MaterialCommunityIcons, MaterialIcons} from "@expo/vector-ico
 import * as ImagePicker from 'expo-image-picker';
 import {supabase} from "@/supabase";
 import EmojiSelector, { Categories } from "react-native-emoji-selector";
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 const OPTIONS = [
   {
@@ -34,6 +35,25 @@ const AddGoal = () => {
   const [title, setTitle] = useState<string>('');
   const [image, setImage] = useState<string | null>(null);
   const [addEmoji, setAddEmoji] = useState<boolean>(false);
+  const [date, setDate] = useState(new Date(1598051730000));
+  const [mode, setMode] = useState('date');
+  const [show, setShow] = useState(false);
+
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate;
+    setShow(false);
+    setDate(currentDate);
+  };
+
+  const showMode = (currentMode) => {
+    setShow(true);
+    setMode(currentMode);
+  };
+
+  const showDatepicker = () => {
+    showMode('date');
+  };
+
   async function insertGoal() {
     try {
       const { data, error } = await supabase.from('goals').insert({
@@ -150,6 +170,22 @@ const AddGoal = () => {
           ))}
         </View>
 
+        <TouchableOpacity onPress={showDatepicker} className="text-white bg-gray-900/50 flex w-[100px] px-2 py-2 items-center justify-center rounded-md" title="Show date picker!">
+          <Text className="text-gray-300">Target Date</Text>
+        </TouchableOpacity>
+        <Text className="text-white my-3">selected: {date.toLocaleString()}</Text>
+        {show && (
+          <DateTimePicker
+            testID="dateTimePicker"
+            value={date}
+            mode={mode}
+            is24Hour={true}
+            onChange={onChange}
+            display={'spinner'}
+          />
+        )}
+
+
         <View className="border-t border-gray-800/60 flex flex-row items-center pt-4 justify-between">
           <View>
             <Text className="text-gray-400">You are creating new goal w' {"Heflis"}</Text>
@@ -161,7 +197,6 @@ const AddGoal = () => {
             <EvilIcons name="clock" size={24} color="black" />
           </View>
         </View>
-
       </View>
       <TouchableOpacity
         onPress={() => onSubmit()}

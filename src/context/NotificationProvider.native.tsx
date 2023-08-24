@@ -58,7 +58,9 @@ export default function NotificationProvider({children}: NotificationProviderPro
       content: {
         title: "You've got mail! 📬",
         body: 'Here is the notification body',
-        data: { data: 'goes here' },
+        data: {
+          type: 'UPDATE_SAVINGS_REMINDER'
+        },
       },
       trigger: {
         weekday: 1,
