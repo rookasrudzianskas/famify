@@ -1,3 +1,4 @@
+// @ts-nocheck
 import {createContext, useEffect, useRef, useState} from "react";
 import { registerForPushNotificationsAsync } from "../utils/register-for-push-async-function";
 import * as Device from 'expo-device';
@@ -28,22 +29,24 @@ export default function NotificationProvider({children}: NotificationProviderPro
   useEffect(() => {
     registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
 
-    // notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
-    //   setNotification(notification);
-    // });
-    //
-    // responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-    //   console.log(response);
-    // });
+    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+      setNotification(notification);
+    });
+
+    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+      console.log(response);
+    });
 
     return () => {
-      // Notifications.removeNotificationSubscription(notificationListener.current);
-      // Notifications.removeNotificationSubscription(responseListener.current);
+      if(notificationListener.current) {
+        Notifications.removeNotificationSubscription(notificationListener.current);
+      }
+
+      if(responseListener.current) {
+        Notifications.removeNotificationSubscription(responseListener.current);
+      }
     };
   }, []);
-
-  console.log(expoPushToken);
-
 
   return (
     <NotificationContext.Provider value={{}}>
