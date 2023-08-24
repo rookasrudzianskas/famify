@@ -18,6 +18,7 @@ import {
   QueryClientProvider,
 } from 'react-query'
 import {SupabaseProvider} from "@/src/context/SupabaseProvider";
+import NotificationProvider from "@/src/context/NotificationProvider.native";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -81,8 +82,9 @@ function RootLayoutNav() {
 
   return (
     <RootSiblingParent>
-      <QueryClientProvider client={queryClient}>
-        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      <NotificationProvider>
+        <QueryClientProvider client={queryClient}>
+          <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
             {onboardingComplete ? (
               <OnboardFlow
                 fullscreenModal={true}
@@ -109,42 +111,43 @@ function RootLayoutNav() {
               />
             ) : (
               <SupabaseProvider>
-                  <>
-                    {session && session.user ? (
-                      <Stack>
-                        <Stack.Screen
-                          name="(tabs)"
-                          options={{ headerShown: false }}
-                        />
-                        <Stack.Screen
-                          name="modal"
-                          options={{ presentation: 'modal', title: 'Add Transaction' }}
-                        />
-                        <Stack.Screen
-                          name="account"
-                          options={{ headerShown: false }}
-                        />
-                        <Stack.Screen
-                          name="goal/[goalId]"
-                          options={{ title: 'Goal Explanation' }}
-                        />
-                        <Stack.Screen
-                          name="create-group"
-                          options={{ headerShown: false }}
-                        />
-                        <Stack.Screen
-                          name="group/[groupId]"
-                          options={{ headerShown: false }}
-                        />
-                      </Stack>
-                    ) : (
-                      <Auth />
-                    )}
-                  </>
+                <>
+                  {session && session.user ? (
+                    <Stack>
+                      <Stack.Screen
+                        name="(tabs)"
+                        options={{ headerShown: false }}
+                      />
+                      <Stack.Screen
+                        name="modal"
+                        options={{ presentation: 'modal', title: 'Add Transaction' }}
+                      />
+                      <Stack.Screen
+                        name="account"
+                        options={{ headerShown: false }}
+                      />
+                      <Stack.Screen
+                        name="goal/[goalId]"
+                        options={{ title: 'Goal Explanation' }}
+                      />
+                      <Stack.Screen
+                        name="create-group"
+                        options={{ headerShown: false }}
+                      />
+                      <Stack.Screen
+                        name="group/[groupId]"
+                        options={{ headerShown: false }}
+                      />
+                    </Stack>
+                  ) : (
+                    <Auth />
+                  )}
+                </>
               </SupabaseProvider>
             )}
-        </ThemeProvider>
-      </QueryClientProvider>
+          </ThemeProvider>
+        </QueryClientProvider>
+      </NotificationProvider>
     </RootSiblingParent>
   );
 }
