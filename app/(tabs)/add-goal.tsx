@@ -101,7 +101,6 @@ const AddGoal = () => {
     </View>
   );
 
-
   return (
     <View className="flex-1 m-2 pt-16">
       <View className="flex flex-1">
