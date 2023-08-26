@@ -3,7 +3,6 @@ import {createContext, useEffect, useRef, useState} from "react";
 import { registerForPushNotificationsAsync } from "../utils/register-for-push-async-function";
 import * as Notifications from 'expo-notifications';
 
-// Configure the notification handler
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
